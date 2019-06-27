@@ -16,44 +16,51 @@ import org.dyn4j.geometry.Vector2;
 public class NaveNeutra {
     //si propietario es nulo es por que no fue reclutado
 
-    //private String propietario; // Podria ser una NavePlayer tambien
+    // Entity
+    protected double x; // Centro de la entidad
+    protected double y; // Centro de la entidad
+    //protected double width; // Ancho (Necesario para la detección de colisiones - Deberia ser del mismo tamaño que el sprite del cliente visual)
+    //protected double height; // Alto
+    protected Vector2 velocidad; // Velocidad de la nave
+
+    //Nave
+    protected int countProyectil;
+    protected Vector2 direccion;
+    protected double angulo;
+
+    protected int puntaje;
+    protected LinkedList<NaveNeutra> navesAliadas;
+    protected int idBullets;
     private NavePlayer propietario;
     private static final int DISTANCIA_DE_ALIANZA = 150;
     private String idProp;
     private boolean disponible;
     private String pregunta = "2 + 5";
     private int respuesta = 7;
-    private static final int[] opciones = {9,7,6,4};
+    private static final int[] opciones = {9, 7, 6, 4};
     private String idPosP;
 
-    public NaveNeutra(String name,boolean destroy, String id, double x, double y, double velocidadX, double velocidadY,double xDir,double yDir, int cantProj, NavePlayer prop) {
-        super("NaveNeutra",destroy, id, x, y, velocidadX, velocidadY,xDir,yDir, cantProj);
-        this.propietario = prop;
-        //this.idPosP= posible;
-        //disponible va a estar en falso cuando un jugador este respondiendo
-        //this.disponible= d;
-        //this.idProp = p;
-        //this.pregunta = preg;
-        //this.respuesta = resp;
+    public NaveNeutra(double x, double y, Vector2 velocidad, int countProyectil, Vector2 direccion, double angulo, int puntaje, LinkedList<NaveNeutra> navesAliadas, int idBullets, NavePlayer propietario, String idProp, boolean disponible, String idPosP) {
+        this.x = x;
+        this.y = y;
+        this.velocidad = velocidad;
+        this.countProyectil = countProyectil;
+        this.direccion = direccion;
+        this.angulo = angulo;
+        this.puntaje = puntaje;
+        this.navesAliadas = navesAliadas;
+        this.idBullets = idBullets;
+        this.propietario = propietario;
+        this.idProp = idProp;
+        this.disponible = disponible;
+        this.idPosP = idPosP;
     }
-
 
     public void setPropietario(NavePlayer propietario) {
         this.propietario = propietario;
     }
 
-   
+    public void fromJSON(JSONObject object) {
 
-
-    @Override
-    public JSONObject fromJSON(JSONObject object) {
-        JSONObject jNeutra = new JSONObject();
-        JSONObject atributo = new JSONObject();
-
-        atributo.put("super", super.toJSON());
-        atributo.put("propietario", propietario);
-        jNeutra.put("NaveNeutra", atributo);
-
-        return jNeutra;
     }
 }

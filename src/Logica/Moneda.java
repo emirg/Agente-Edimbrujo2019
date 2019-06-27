@@ -5,30 +5,43 @@
  */
 package Logica;
 
-
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Random;
+import org.dyn4j.geometry.Vector2;
 import org.json.simple.JSONObject;
 
 /**
  *
  * @author emiliano
  */
-public class Moneda  {
+public class Moneda {
 
-    public Moneda(String name, boolean destroy, String id, double x, double y, double velocidadX, double velocidadY, double width, double height) {
-        super("Moneda", destroy, id, x, y, 0, 0, 32, 32);
+    String name;
+    boolean destroy;
+    String id;
+    double x;
+    double y;
+    double width;
+    double height;
+
+    public Moneda(String name, boolean destroy, String id, double x, double y, double width, double height) {
+        this.name = name;
+        this.destroy = destroy;
+        this.id = id;
+        this.x = x;
+        this.y = y;
+        this.width = width;
+        this.height = height;
     }
 
-    public JSONObject fromJSON() {
-        JSONObject jMoneda = new JSONObject();
-        JSONObject atributo = new JSONObject();
+    public void fromJSON(JSONObject object) {
+        this.x = (double) object.get("x");
+        this.y = (double) object.get("y");
+        this.id = (String) object.get("id");
+        this.name = (String) object.get("name");
+        this.destroy = (boolean) object.get("destroy");
 
-        //atributo.put("super", super.toJSON());
-        jMoneda.put("Moneda", atributo);
-
-        return jMoneda;
     }
 
 }
