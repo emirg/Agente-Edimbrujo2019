@@ -5,7 +5,7 @@ import java.util.LinkedList;
 import org.dyn4j.geometry.Vector2;
 import org.json.simple.JSONObject;
 
-public class Proyectil extends Entity {
+public class Proyectil {
 
     protected int number;
     protected String idPlayer;
