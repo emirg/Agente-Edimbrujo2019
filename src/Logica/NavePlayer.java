@@ -9,35 +9,37 @@ import org.json.simple.JSONObject;
 public class NavePlayer {
 
     // Entity
-    protected double x; // Centro de la entidad
-    protected double y; // Centro de la entidad
+    private double x; // Centro de la entidad
+    private double y; // Centro de la entidad
     //protected double width; // Ancho (Necesario para la detección de colisiones - Deberia ser del mismo tamaño que el sprite del cliente visual)
     //protected double height; // Alto
-    protected Vector2 velocidad; // Velocidad de la nave
+    private Vector2 velocidad; // Velocidad de la nave
     
     //Nave
-    protected int countProyectil;
-    protected Vector2 direccion;
-    protected double angulo;
+    private int countProyectil;
+    private Vector2 direccion;
+    private double angulo;
 
     // NavePlayer
-    protected int health;
-    protected int healthMax;
-    protected boolean leave;
-    protected boolean dead;
-    protected int puntaje;
-    protected LinkedList<NaveNeutra> navesAliadas;
-    protected int idBullets;
+    private int health;
+    private int healthMax;
+    private boolean leave;
+    private boolean dead;
+    private int puntaje;
+    private LinkedList<NaveNeutra> navesAliadas;
+    private int idBullets;
+    private String name;
+    private boolean destroy;
+    private String id;
+
 
     public NavePlayer(String name, boolean destroy, String id, double x, double y, double velocidadX, double velocidadY, double xDir, double yDir, int h, int hM, int cantProj, int puntaje, boolean leave, boolean dead) {
         this.x = x;
         this.y = y;
         this.velocidad = new Vector2(velocidadX, velocidadY);
-        
         this.countProyectil = cantProj;
         this.direccion = new Vector2(xDir,yDir);
         this.angulo = direccion.getDirection()*(180/Math.PI);
-        
         this.health = h;
         this.healthMax = hM;
         this.leave = leave;
@@ -45,6 +47,9 @@ public class NavePlayer {
         this.puntaje = puntaje;
         //this.navesAliadas = new LinkedList<NaveNeutra>();
         this.idBullets = 0;
+        this.name=name;
+        this.destroy=destroy;
+        this.id=id;
     }
 
     public JSONObject fromJSON(JSONObject object) {
