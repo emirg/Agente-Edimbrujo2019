@@ -37,16 +37,12 @@ public class Asteroide {
     }
 
     public void fromJSON(JSONObject object) {
-        JSONObject entity = (JSONObject) ((JSONObject) object.get("super")).get("Entity");
-        this.dead = (Boolean) object.get("dead");
-        this.leave = (Boolean) object.get("leave");
-        this.health = (int) (long) object.get("health");
-        this.healthMax = (int) (long) object.get("healthMax");
-
-        this.position = new Point((int) (long) entity.get("x"), (int) (long) entity.get("y"));
-        this.team = (int) (long) object.get("team");
-        this.role = (int) (long) object.get("role");
-
+        this.x = (double) object.get("x");
+        this.y = (double) object.get("y");
+        this.velocidad = new Vector2((double) object.get("velocidadX"), (double) object.get("velocidadY"));
+        this.id = (String) object.get("id");
+        this.name = (String) object.get("name");
+        this.destroy = (boolean) object.get("destroy");
     }
 
 }
