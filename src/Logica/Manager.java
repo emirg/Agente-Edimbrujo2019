@@ -89,7 +89,10 @@ public class Manager {
                 JSONObject jsonObject = (JSONObject) json.get(Integer.toString(i));
                 JSONObject object;
                 if ((object = (JSONObject) jsonObject.get("NavePlayer")) != null) {
-                    String id = (String) object.get("id");
+                    JSONObject nave = (JSONObject) ((JSONObject) object.get("super")).get("Nave");
+                    JSONObject entity = (JSONObject) ((JSONObject) nave.get("super")).get("Entity");
+                    JSONObject naveState = (JSONObject) ((JSONObject) entity.get("super")).get("State");
+                    String id = (String) naveState.get("id");
                     NavePlayer player = navePlayers.get(id);
                     if (player == null) {
                         player = new NavePlayer();
@@ -98,7 +101,9 @@ public class Manager {
                     }
                     player.fromJSON(object);
                 } else if ((object = (JSONObject) jsonObject.get("Moneda")) != null) {
-                    String id = (String) object.get("id");
+                    JSONObject entity = (JSONObject) ((JSONObject) object.get("super")).get("Entity");
+                    JSONObject monedaState = (JSONObject) ((JSONObject) entity.get("super")).get("State");
+                    String id = (String) monedaState.get("id");
                     Moneda moneda = monedas.get(id);
                     if (moneda == null) {
                         moneda = new Moneda();
@@ -107,11 +112,13 @@ public class Manager {
                     }
                     moneda.fromJSON(object);
                 } else if ((object = (JSONObject) jsonObject.get("Proyectil")) != null) {
-                    String id = (String) object.get("id");
+                    JSONObject entity = (JSONObject) ((JSONObject) object.get("super")).get("Entity");
+                    JSONObject proyecState = (JSONObject) ((JSONObject) entity.get("super")).get("State");
+                    String id = (String) proyecState.get("id");
                     Proyectil proyectil = new Proyectil();
                     proyectilList.add(proyectil);
                     proyectil.fromJSON(object);
-                } else if ((object = (JSONObject) jsonObject.get("Match")) != null) {
+                } else if ((object = (JSONObject) jsonObject.get("Match")) != null) { // No se usa por ahora
                     match.fromJSON(object);
                 }
             }

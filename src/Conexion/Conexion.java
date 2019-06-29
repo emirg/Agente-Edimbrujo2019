@@ -75,6 +75,7 @@ public class Conexion {
     }
 
     public String makeMove(String x, String y) throws MalformedURLException, IOException {
+        System.out.println("quiero moverme");
 	url = new URL(servidor + "/actionMove?x=" + x + "&y=" + y + "&session=" + token);
 	conn = (HttpURLConnection) url.openConnection();
 	conn.setRequestMethod("GET");

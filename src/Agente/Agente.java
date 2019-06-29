@@ -47,13 +47,20 @@ public class Agente {
         manager.updateState(con.getFullState());
     }
 
+    public void cargarJugador() {
+        myAgent = manager.getPlayer(myID);
+    }
+
     public void jugar() throws IOException {
         manager.updateState(con.getFullState());
+        cargarJugador();
         navePlayers = manager.getPlayers();
         monedas = manager.getMonedas();
 
         Moneda monedaObjetivo = monedaMasCercana();
+
         if (monedaObjetivo != null) {
+            System.out.println("Encontre: (" + monedaObjetivo.getX() + "," + monedaObjetivo.getY() + ")");
             Vector2 nuevaVelocidad = steer(monedaObjetivo);
             con.makeMove("" + nuevaVelocidad.x, "" + nuevaVelocidad.y);
         }
