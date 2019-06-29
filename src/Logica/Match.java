@@ -16,25 +16,8 @@ public class Match {
         this.playingPlayers = playingPlayers;
     }
 
-    public JSONObject fromJSON() {
-        JSONObject jsonMatch = new JSONObject();
-        JSONObject jsonAttrs = new JSONObject();
-        //jsonAttrs.put("super", super.toJSON());
+    public void fromJSON(JSONObject object) {
 
-        JSONArray jsonPlayers = new JSONArray();
-        for (String player : players) {
-            jsonPlayers.add(player);
-        }
-        jsonAttrs.put("players", jsonPlayers);
-
-        JSONArray jsonPlayingPlayers = new JSONArray();
-        for (String playingPlayer : playingPlayers) {
-            jsonPlayingPlayers.add(playingPlayer);
-        }
-        jsonAttrs.put("playingPlayers", jsonPlayingPlayers);
-
-        jsonMatch.put("Match", jsonAttrs);
-        return jsonMatch;
     }
 
 }

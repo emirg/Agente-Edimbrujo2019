@@ -20,30 +20,40 @@ public class Proyectil {
     private double width = 64;
     private double height = 12;
 
-    public Proyectil(String name, boolean destroy, String id, String idPlayer, double x, double y, double velocidadX, double velocidadY,double xDir, double yDir ,double angulo ,int number) {
-        this.destroy=destroy;
-        this.name=name;
-        this.id=id;
-        this.x=x;
-        this.y=y;
+    public Proyectil(String name, boolean destroy, String id, String idPlayer, double x, double y, double velocidadX, double velocidadY, double xDir, double yDir, double angulo, int number) {
+        this.destroy = destroy;
+        this.name = name;
+        this.id = id;
+        this.x = x;
+        this.y = y;
         this.number = number;
         this.idPlayer = idPlayer;
-        this.angulo=angulo;
-        this.direccion = new Vector2(xDir,yDir);
+        this.angulo = angulo;
+        this.direccion = new Vector2(xDir, yDir);
         this.velocidad = new Vector2(velocidadX, velocidadY);
+    }
+    
+    public Proyectil(){
+        
     }
 
     public void fromJSON(JSONObject object) {
-        this.x = (double) object.get("x");
-        this.y = (double) object.get("y");
-        this.velocidad = new Vector2((double) object.get("velocidadX"), (double) object.get("velocidadY"));
-        this.direccion = new Vector2((double) object.get("xDir"), (double) object.get("yDir"));
-        this.id = (String) object.get("id");
-        this.name = (String) object.get("name");
-        this.destroy = (boolean) object.get("destroy");
-        this.number= (int) object.get("numero");
+        JSONObject entity = (JSONObject) ((JSONObject) object.get("super")).get("Entity");
+        JSONObject state = (JSONObject) ((JSONObject) entity.get("super")).get("State");
+
         this.idPlayer = (String) object.get("idPlayer");
+        this.direccion = new Vector2((double) object.get("xDir"), (double) object.get("yDir"));
         this.angulo = (double) object.get("angulo");
+        this.number = (int) object.get("numero");
+
+        this.x = (double) entity.get("x");
+        this.y = (double) entity.get("y");
+        this.velocidad = new Vector2((double) entity.get("velocidadX"), (double) entity.get("velocidadY"));
+
+        this.id = (String) state.get("id");
+        this.name = (String) state.get("name");
+        this.destroy = (boolean) state.get("destroy");
+
     }
 
 }

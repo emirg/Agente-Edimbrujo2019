@@ -74,8 +74,8 @@ public class Conexion {
 	return res;
     }
 
-    public String makeRangeAtack(String x, String y) throws MalformedURLException, IOException {
-	url = new URL(servidor + "/actionFire?x=" + x + "&y=" + y + "&session=" + token);
+    public String makeMove(String x, String y) throws MalformedURLException, IOException {
+	url = new URL(servidor + "/actionMove?x=" + x + "&y=" + y + "&session=" + token);
 	conn = (HttpURLConnection) url.openConnection();
 	conn.setRequestMethod("GET");
 	if (conn.getResponseCode() != 200) {

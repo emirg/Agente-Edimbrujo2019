@@ -5,6 +5,7 @@
  */
 package Logica;
 
+import java.awt.Point;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Random;
@@ -22,25 +23,43 @@ public class Moneda {
     String id;
     double x;
     double y;
-    double width;
-    double height;
+    double width = 32;
+    double height = 32;
 
-    public Moneda(String name, boolean destroy, String id, double x, double y, double width, double height) {
+    public Moneda(String name, boolean destroy, String id, double x, double y) {
         this.name = name;
         this.destroy = destroy;
         this.id = id;
         this.x = x;
         this.y = y;
-        this.width = width;
-        this.height = height;
+    }
+
+    public Moneda() {
+
+    }
+
+    public double getX() {
+        return x;
+    }
+
+    public double getY() {
+        return y;
+    }
+
+    public Point getPosition() {
+        return new Point((int) x, (int) y);
     }
 
     public void fromJSON(JSONObject object) {
-        this.x = (double) object.get("x");
-        this.y = (double) object.get("y");
-        this.id = (String) object.get("id");
-        this.name = (String) object.get("name");
-        this.destroy = (boolean) object.get("destroy");
+        JSONObject entity = (JSONObject) ((JSONObject) object.get("super")).get("Entity");
+        JSONObject state = (JSONObject) ((JSONObject) entity.get("super")).get("State");
+
+        this.x = (double) entity.get("x");
+        this.y = (double) entity.get("y");
+
+        this.id = (String) state.get("id");
+        this.name = (String) state.get("name");
+        this.destroy = (boolean) state.get("destroy");
 
     }
 

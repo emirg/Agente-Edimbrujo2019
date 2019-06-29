@@ -6,7 +6,6 @@
 package Agente;
 
 import Conexion.Conexion;
-import Logica.Entity;
 import Logica.Manager;
 import Logica.Moneda;
 import Logica.NavePlayer;
@@ -53,15 +52,32 @@ public class Agente {
         navePlayers = manager.getPlayers();
         monedas = manager.getMonedas();
 
-        // System.out.println("Ataco");
         Moneda monedaObjetivo = monedaMasCercana();
         if (monedaObjetivo != null) {
-            steer(monedaObjetivo);
+            Vector2 nuevaVelocidad = steer(monedaObjetivo);
+            con.makeMove("" + nuevaVelocidad.x, "" + nuevaVelocidad.y);
         }
     }
 
     private Moneda monedaMasCercana() {
-        return null;
+        Moneda masCercana = null;
+        double distanciaMasCercana = Integer.MAX_VALUE;
+        for (Moneda moneda : monedas) {
+            if (moneda != null && myAgent != null) {
+                double distanciaActual = distancia(moneda.getPosition(), myAgent.getPosition());
+                if (masCercana == null) {
+                    masCercana = moneda;
+                    distanciaMasCercana = distanciaActual;
+                } else {
+                    if (distanciaActual < distanciaMasCercana) {
+                        masCercana = moneda;
+                        distanciaMasCercana = distanciaActual;
+                    }
+                }
+            }
+        }
+
+        return masCercana;
     }
 
     private NavePlayer enemigoMasCercano() {
@@ -69,7 +85,7 @@ public class Agente {
     }
 
     // Este metodo basicamente es el seek
-    private void steer(Entity entidad) {
+    private Vector2 steer(Moneda entidad) {
         Vector2 vectorDesired, vectorSteering;
         // 1. vector(desired velocity) = (target position) - (vehicle position)
         vectorDesired = new Vector2(myAgent.getX(), myAgent.getY()).subtract(entidad.getX(), entidad.getY());
@@ -87,7 +103,7 @@ public class Agente {
         //vectorSteering.x = vectorSteering.x / pVehicle.body.mass
         //vectorSteering.y = vectorSteering.y / pVehicle.body.mass
         truncate(vectorSteering.add(myAgent.getVelocidad()), MAX_VELOCITY);
-        myAgent.setVelocidad(vectorSteering);
+        return vectorSteering;
 
     }
 

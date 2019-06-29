@@ -5,6 +5,10 @@
  */
 package Agente;
 
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author emiliano
@@ -15,7 +19,16 @@ public class Edimbrujo2019_Agente {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        try {
+            // TODO code application logic here
+            Agente ia = new Agente();
+            while (true) {
+                ia.jugar();
+            }
+
+        } catch (IOException ex) {
+            Logger.getLogger(Edimbrujo2019_Agente.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
-    
+
 }

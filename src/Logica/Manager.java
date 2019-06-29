@@ -1,4 +1,4 @@
-    package Logica;
+package Logica;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -27,8 +27,9 @@ public class Manager {
     }
 
     private Manager() {
-        navePlayers = new HashMap<>();
         // match = new Match();
+        navePlayers = new HashMap<>();
+        monedas = new HashMap<>();
         navePlayerList = new ArrayList<>();
         proyectilList = new ArrayList<>();
         asteroideList = new ArrayList<>();
@@ -79,8 +80,7 @@ public class Manager {
             Logger.getLogger(Manager.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    */
-    
+     */
     public void updateState(String state) {
         try {
             proyectilList = new ArrayList<>();
@@ -92,23 +92,23 @@ public class Manager {
                     String id = (String) object.get("id");
                     NavePlayer player = navePlayers.get(id);
                     if (player == null) {
-                        player = new NavePlayer(id);
+                        player = new NavePlayer();
                         navePlayers.put(id, player);
                         navePlayerList.add(player);
                     }
-                    //player.fromJSON(object);
+                    player.fromJSON(object);
                 } else if ((object = (JSONObject) jsonObject.get("Moneda")) != null) {
                     String id = (String) object.get("id");
                     Moneda moneda = monedas.get(id);
                     if (moneda == null) {
-                        moneda = new Moneda(id);
+                        moneda = new Moneda();
                         monedas.put(id, moneda);
                         monedaList.add(moneda);
                     }
                     moneda.fromJSON(object);
                 } else if ((object = (JSONObject) jsonObject.get("Proyectil")) != null) {
                     String id = (String) object.get("id");
-                    Proyectil proyectil = new Proyectil(id);
+                    Proyectil proyectil = new Proyectil();
                     proyectilList.add(proyectil);
                     proyectil.fromJSON(object);
                 } else if ((object = (JSONObject) jsonObject.get("Match")) != null) {

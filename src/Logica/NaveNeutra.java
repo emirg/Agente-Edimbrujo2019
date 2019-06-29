@@ -5,9 +5,6 @@
  */
 package Logica;
 
-import engine.Action;
-import engine.State;
-import engine.StaticState;
 import java.util.HashMap;
 import java.util.LinkedList;
 import org.json.simple.JSONObject;
@@ -60,7 +57,10 @@ public class NaveNeutra {
         this.propietario = propietario;
     }
 
-    public void fromJSON(JSONObject object) {
+    public void fromJSON(JSONObject object) { // Hay que terminar de definir el toJSON para pasar a esta parte
+        JSONObject nave = (JSONObject) ((JSONObject) object.get("super")).get("Nave");
+        JSONObject entity = (JSONObject) ((JSONObject) nave.get("super")).get("Entity");
+        JSONObject state = (JSONObject) ((JSONObject) entity.get("super")).get("State");
 
     }
 }
