@@ -95,7 +95,7 @@ public class Agente {
     private Vector2 steer(Moneda entidad) {
         Vector2 vectorDesired, vectorSteering;
         // 1. vector(desired velocity) = (target position) - (vehicle position)
-        vectorDesired = new Vector2(myAgent.getX(), myAgent.getY()).subtract(entidad.getX(), entidad.getY());
+        vectorDesired = new Vector2(entidad.getX(), entidad.getY()).subtract(myAgent.getX(), myAgent.getY());
         // 2. normalize vector(desired velocity)
         vectorDesired.normalize();
         // 3. scale vector(desired velocity) to maximum speed
@@ -107,9 +107,10 @@ public class Agente {
         //vectorSteering.scale(200);
         // 6. vector(new velocity) = vector(current velocity) + vector(steering force)
         // 7. limit the magnitude of vector(new velocity) to maximum speed
-        //vectorSteering.x = vectorSteering.x / pVehicle.body.mass
-        //vectorSteering.y = vectorSteering.y / pVehicle.body.mass
-        truncate(vectorSteering.add(myAgent.getVelocidad()), MAX_VELOCITY);
+        vectorSteering.x = vectorSteering.x / 10;
+        vectorSteering.y = vectorSteering.y / 10;
+        //truncate(vectorSteering.add(myAgent.getVelocidad()), MAX_VELOCITY);
+        vectorSteering.add(myAgent.getVelocidad());
         return vectorSteering;
 
     }

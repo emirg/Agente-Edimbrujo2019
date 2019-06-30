@@ -91,6 +91,7 @@ public class NavePlayer {
             String key = (String) iterator.next();
 
         }*/
+        
         // State
         this.id = (String) state.get("id");
         this.name = (String) state.get("name");
