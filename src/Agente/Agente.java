@@ -57,12 +57,36 @@ public class Agente {
         navePlayers = manager.getPlayers();
         monedas = manager.getMonedas();
 
-        Moneda monedaObjetivo = monedaMasCercana();
+        double distanciaEnemigo=Integer.MAX_VALUE;
+        double distanciaMoneda=Integer.MAX_VALUE;
 
-        if (monedaObjetivo != null) {
-            System.out.println("Encontre: (" + monedaObjetivo.getX() + "," + monedaObjetivo.getY() + ")");
-            Vector2 nuevaVelocidad = steer(monedaObjetivo);
-            con.makeMove("" + nuevaVelocidad.x, "" + nuevaVelocidad.y);
+        Moneda monedaObjetivo = monedaMasCercana();
+        NavePlayer enemigoObjetivo = enemigoMasCercano();
+
+        if(monedaObjetivo != null && enemigoObjetivo != null){
+            distanciaMoneda=distancia(monedaObjetivo.getPosition(), myAgent.getPosition());
+            distanciaEnemigo=distancia(enemigoObjetivo.getPosition(), myAgent.getPosition());
+            if(distanciaEnemigo>distanciaMoneda){
+                System.out.println("Encontre: (" + monedaObjetivo.getX() + "," + monedaObjetivo.getY() + ")");
+                Vector2 nuevaVelocidad = steer(monedaObjetivo);
+                con.makeRangeAtack("" + nuevaVelocidad.x, "" + nuevaVelocidad.y);
+            }else{
+                System.out.println("Encontre: (" + enemigoObjetivo.getX() + "," + enemigoObjetivo.getY() + ")");
+                Vector2 nuevaVelocidad = steer1(enemigoObjetivo);
+                con.makeMove("" + nuevaVelocidad.x, "" + nuevaVelocidad.y);
+            }
+        }else{
+            if(enemigoObjetivo != null){
+                System.out.println("Encontre: (" + enemigoObjetivo.getX() + "," + enemigoObjetivo.getY() + ")");
+                Vector2 nuevaVelocidad = steer1(enemigoObjetivo);
+                con.makeRangeAtack("" + nuevaVelocidad.x, "" + nuevaVelocidad.y);
+            }
+            if(monedaObjetivo != null){
+                System.out.println("Encontre: (" + monedaObjetivo.getX() + "," + monedaObjetivo.getY() + ")");
+                Vector2 nuevaVelocidad = steer(monedaObjetivo);
+                con.makeMove("" + nuevaVelocidad.x, "" + nuevaVelocidad.y);
+            }
+
         }
     }
 
@@ -87,12 +111,57 @@ public class Agente {
         return masCercana;
     }
 
-    private NavePlayer enemigoMasCercano() {
-        return null;
+    private NavePlayer enemigoMasCercano(){
+        NavePlayer masCercano = null;
+        double distanciaMasCercana = Integer.MAX_VALUE;
+        for (NavePlayer player : navePlayers) {
+            if (player != null && myAgent != null) {
+                if(player!=myAgent){
+                    double distanciaActual = distancia(player.getPosition(), myAgent.getPosition());
+                    if (masCercano == null) {
+                        masCercano = player;
+                        distanciaMasCercana = distanciaActual;
+                    } else {
+                        if (distanciaActual < distanciaMasCercana) {
+                            masCercano = player;
+                            distanciaMasCercana = distanciaActual;
+                        }
+                    }
+                }
+            }
+        }
+
+        return masCercano;
     }
+
+    //private NavePlayer enemigoMasCercano() {
+    ///    return null;
+    //}
 
     // Este metodo basicamente es el seek
     private Vector2 steer(Moneda entidad) {
+        Vector2 vectorDesired, vectorSteering;
+        // 1. vector(desired velocity) = (target position) - (vehicle position)
+        vectorDesired = new Vector2(entidad.getX(), entidad.getY()).subtract(myAgent.getX(), myAgent.getY());
+        // 2. normalize vector(desired velocity)
+        vectorDesired.normalize();
+        // 3. scale vector(desired velocity) to maximum speed
+        vectorDesired.setMagnitude(MAX_VELOCITY);
+        // 4. vector(steering force) = vector(desired velocity) - vector(current velocity)
+        vectorSteering = vectorDesired.subtract(myAgent.getVelocidad());
+
+        // 5. limit the magnitude of vector(steering force) to maximum force
+        //vectorSteering.scale(200);
+        // 6. vector(new velocity) = vector(current velocity) + vector(steering force)
+        // 7. limit the magnitude of vector(new velocity) to maximum speed
+        vectorSteering.x = vectorSteering.x / 10;
+        vectorSteering.y = vectorSteering.y / 10;
+        //truncate(vectorSteering.add(myAgent.getVelocidad()), MAX_VELOCITY);
+        vectorSteering.add(myAgent.getVelocidad());
+        return vectorSteering;
+
+    }
+    private Vector2 steer1(NavePlayer entidad) {
         Vector2 vectorDesired, vectorSteering;
         // 1. vector(desired velocity) = (target position) - (vehicle position)
         vectorDesired = new Vector2(entidad.getX(), entidad.getY()).subtract(myAgent.getX(), myAgent.getY());
