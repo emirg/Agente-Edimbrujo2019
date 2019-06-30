@@ -63,7 +63,7 @@ public class Agente {
         Moneda monedaObjetivo = monedaMasCercana();
         NavePlayer enemigoObjetivo = enemigoMasCercano();
 
-        if(monedaObjetivo != null && enemigoObjetivo != null){
+        /*if(monedaObjetivo != null && enemigoObjetivo != null){
             distanciaMoneda=distancia(monedaObjetivo.getPosition(), myAgent.getPosition());
             distanciaEnemigo=distancia(enemigoObjetivo.getPosition(), myAgent.getPosition());
             if(distanciaEnemigo>distanciaMoneda){
@@ -75,19 +75,28 @@ public class Agente {
                 Vector2 nuevaVelocidad = steer1(enemigoObjetivo);
                 con.makeMove("" + nuevaVelocidad.x, "" + nuevaVelocidad.y);
             }
-        }else{
-            if(enemigoObjetivo != null){
-                System.out.println("Encontre: (" + enemigoObjetivo.getX() + "," + enemigoObjetivo.getY() + ")");
-                Vector2 nuevaVelocidad = steer1(enemigoObjetivo);
-                con.makeRangeAtack("" + nuevaVelocidad.x, "" + nuevaVelocidad.y);
-            }
-            if(monedaObjetivo != null){
-                System.out.println("Encontre: (" + monedaObjetivo.getX() + "," + monedaObjetivo.getY() + ")");
-                Vector2 nuevaVelocidad = steer(monedaObjetivo);
-                con.makeMove("" + nuevaVelocidad.x, "" + nuevaVelocidad.y);
+        }else{*/
+            if(enemigoObjetivo != null ){
+                distanciaEnemigo=distancia(enemigoObjetivo.getPosition(), myAgent.getPosition());
+                System.out.println("distanciaEnemigo"+distanciaEnemigo);
+                if(distanciaEnemigo<200){
+                    System.out.println("Encontre: (" + enemigoObjetivo.getX() + "," + enemigoObjetivo.getY() + ")");
+                    Vector2 nuevaVelocidad = steer1(enemigoObjetivo);
+                    con.makeRangeAtack("" + nuevaVelocidad.x, "" + nuevaVelocidad.y);
+                }else{
+                    System.out.println("Encontre: (" + enemigoObjetivo.getX() + "," + enemigoObjetivo.getY() + ")");
+                    Vector2 nuevaVelocidad = steer1(enemigoObjetivo);
+                    con.makeMove("" + nuevaVelocidad.x, "" + nuevaVelocidad.y);
+                }
+            }else{
+                if(monedaObjetivo != null){
+                    System.out.println("Encontre: (" + monedaObjetivo.getX() + "," + monedaObjetivo.getY() + ")");
+                    Vector2 nuevaVelocidad = steer(monedaObjetivo);
+                    con.makeMove("" + nuevaVelocidad.x, "" + nuevaVelocidad.y);
+                }
             }
 
-        }
+        
     }
 
     private Moneda monedaMasCercana() {
