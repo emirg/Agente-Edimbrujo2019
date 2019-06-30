@@ -82,16 +82,15 @@ public class NavePlayer {
     }
 
     public void fromJSON(JSONObject object) { // Temporal, falta definir bien el toJSON
-        JSONObject opciones = (JSONObject) object.get("opciones");
+        //JSONObject opciones = (JSONObject) object.get("opciones");
         JSONObject nave = (JSONObject) ((JSONObject) object.get("super")).get("Nave");
         JSONObject entity = (JSONObject) ((JSONObject) nave.get("super")).get("Entity");
         JSONObject state = (JSONObject) ((JSONObject) entity.get("super")).get("State");
 
-        for (Iterator iterator = opciones.keySet().iterator(); iterator.hasNext();) {
+        /*for (Iterator iterator = opciones.keySet().iterator(); iterator.hasNext();) {
             String key = (String) iterator.next();
 
-        }
-
+        }*/
         // State
         this.id = (String) state.get("id");
         this.name = (String) state.get("name");
