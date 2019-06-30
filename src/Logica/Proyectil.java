@@ -32,9 +32,9 @@ public class Proyectil {
         this.direccion = new Vector2(xDir, yDir);
         this.velocidad = new Vector2(velocidadX, velocidadY);
     }
-    
-    public Proyectil(){
-        
+
+    public Proyectil() {
+
     }
 
     public void fromJSON(JSONObject object) {
@@ -44,7 +44,7 @@ public class Proyectil {
         this.idPlayer = (String) object.get("idPlayer");
         this.direccion = new Vector2((double) object.get("xDir"), (double) object.get("yDir"));
         this.angulo = (double) object.get("angulo");
-        this.number = (int) object.get("numero");
+        this.number = (int) (long) object.get("number");
 
         this.x = (double) entity.get("x");
         this.y = (double) entity.get("y");
