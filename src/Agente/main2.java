@@ -13,7 +13,7 @@ import java.util.logging.Logger;
  *
  * @author emiliano
  */
-public class Edimbrujo2019_Agente {
+public class main2 {
 
     /**
      * @param args the command line arguments
@@ -21,13 +21,13 @@ public class Edimbrujo2019_Agente {
     public static void main(String[] args) {
         try {
             // TODO code application logic here
-            //Agente ia = new Agente();
-            Agente1 ia1 = new Agente1();
+            Agente ia = new Agente();
+            //Agente1 ia1 = new Agente1();
 
             while (true) {
                 //ia.jugar();
                 
-                ia1.jugar();
+                ia.jugar();
             }
 
         } catch (IOException ex) {
