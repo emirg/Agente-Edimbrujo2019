@@ -87,16 +87,4 @@ public class Conexion {
         return res;
     }
 
-    public String makeRangeAtack(String x, String y) throws MalformedURLException, IOException {
-		System.out.println("quiero disparar");
-        url = new URL(servidor + "/actionFire?x=" + x + "&y=" + y + "&session=" + token);
-        conn = (HttpURLConnection) url.openConnection();
-        conn.setRequestMethod("GET");
-        if (conn.getResponseCode() != 200) {
-            throw new RuntimeException("Failed: HTTP error code : " + conn.getResponseCode());
-        }
-        BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-        String res = reader.readLine();
-        return res;
-    }
 }

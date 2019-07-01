@@ -82,7 +82,7 @@ public class Agente {
                 if(distanciaEnemigo<200){
                     System.out.println("Encontre: (" + enemigoObjetivo.getX() + "," + enemigoObjetivo.getY() + ")");
                     Vector2 nuevaVelocidad = steer1(enemigoObjetivo);
-                    con.makeRangeAtack("" + nuevaVelocidad.x, "" + nuevaVelocidad.y);
+                    con.makeAction("fire");
                 }else{
                     System.out.println("Encontre: (" + enemigoObjetivo.getX() + "," + enemigoObjetivo.getY() + ")");
                     Vector2 nuevaVelocidad = steer1(enemigoObjetivo);
