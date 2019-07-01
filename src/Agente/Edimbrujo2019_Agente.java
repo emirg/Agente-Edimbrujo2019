@@ -21,13 +21,12 @@ public class Edimbrujo2019_Agente {
     public static void main(String[] args) {
         try {
             // TODO code application logic here
-            //Agente ia = new Agente();
-            Agente1 ia1 = new Agente1();
+            //AgenteMoneda ia = new Agente();
+            AgenteAtaque ia = new AgenteAtaque();
 
             while (true) {
-                //ia.jugar();
-                
-                ia1.jugar();
+
+                ia.jugar();
             }
 
         } catch (IOException ex) {

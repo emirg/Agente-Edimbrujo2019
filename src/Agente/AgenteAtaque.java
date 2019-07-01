@@ -21,7 +21,7 @@ import org.dyn4j.geometry.Vector2;
  *
  * @author emiliano
  */
-public class Agente1 {
+public class AgenteAtaque {
 
     public static final double MAX_VELOCITY = 50;
 
@@ -35,7 +35,7 @@ public class Agente1 {
     private String myID;
     private Conexion con;
 
-    public Agente1() throws IOException {
+    public AgenteAtaque() throws IOException {
 
         //con = new Conexion("http://10.0.20.157:8080/Edimbrujo/webservice/server");
         //con = new Conexion("http://edimbrujo.fi.uncoma.edu.ar/Edimbrujo/webservice/server");

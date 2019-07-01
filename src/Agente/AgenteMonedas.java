@@ -21,7 +21,7 @@ import org.dyn4j.geometry.Vector2;
  *
  * @author emiliano
  */
-public class Agente {
+public class AgenteMonedas {
 
     public static final double MAX_VELOCITY = 50;
 
@@ -35,7 +35,7 @@ public class Agente {
     private String myID;
     private Conexion con;
 
-    public Agente() throws IOException {
+    public AgenteMonedas() throws IOException {
 
         //con = new Conexion("http://10.0.20.157:8080/Edimbrujo/webservice/server");
         //con = new Conexion("http://edimbrujo.fi.uncoma.edu.ar/Edimbrujo/webservice/server");
@@ -57,46 +57,32 @@ public class Agente {
         navePlayers = manager.getPlayers();
         monedas = manager.getMonedas();
 
-        double distanciaEnemigo=Integer.MAX_VALUE;
-        double distanciaMoneda=Integer.MAX_VALUE;
+        double distanciaEnemigo = Integer.MAX_VALUE;
+        double distanciaMoneda = Integer.MAX_VALUE;
 
         Moneda monedaObjetivo = monedaMasCercana();
         NavePlayer enemigoObjetivo = enemigoMasCercano();
 
-        /*if(monedaObjetivo != null && enemigoObjetivo != null){
-            distanciaMoneda=distancia(monedaObjetivo.getPosition(), myAgent.getPosition());
-            distanciaEnemigo=distancia(enemigoObjetivo.getPosition(), myAgent.getPosition());
-            if(distanciaEnemigo>distanciaMoneda){
-                System.out.println("Encontre: (" + monedaObjetivo.getX() + "," + monedaObjetivo.getY() + ")");
-                Vector2 nuevaVelocidad = steer(monedaObjetivo);
-                con.makeRangeAtack("" + nuevaVelocidad.x, "" + nuevaVelocidad.y);
-            }else{
+        if (enemigoObjetivo != null) {
+            distanciaEnemigo = distancia(enemigoObjetivo.getPosition(), myAgent.getPosition());
+            System.out.println("distanciaEnemigo" + distanciaEnemigo);
+            if (distanciaEnemigo < 200) {
                 System.out.println("Encontre: (" + enemigoObjetivo.getX() + "," + enemigoObjetivo.getY() + ")");
-                Vector2 nuevaVelocidad = steer1(enemigoObjetivo);
+                Vector2 nuevaVelocidad = steer(enemigoObjetivo);
+                con.makeAction("fire");
+            } else {
+                System.out.println("Encontre: (" + enemigoObjetivo.getX() + "," + enemigoObjetivo.getY() + ")");
+                Vector2 nuevaVelocidad = steer(enemigoObjetivo);
                 con.makeMove("" + nuevaVelocidad.x, "" + nuevaVelocidad.y);
             }
-        }else{*/
-            if(enemigoObjetivo != null ){
-                distanciaEnemigo=distancia(enemigoObjetivo.getPosition(), myAgent.getPosition());
-                System.out.println("distanciaEnemigo"+distanciaEnemigo);
-                if(distanciaEnemigo<200){
-                    System.out.println("Encontre: (" + enemigoObjetivo.getX() + "," + enemigoObjetivo.getY() + ")");
-                    Vector2 nuevaVelocidad = steer1(enemigoObjetivo);
-                    con.makeAction("fire");
-                }else{
-                    System.out.println("Encontre: (" + enemigoObjetivo.getX() + "," + enemigoObjetivo.getY() + ")");
-                    Vector2 nuevaVelocidad = steer1(enemigoObjetivo);
-                    con.makeMove("" + nuevaVelocidad.x, "" + nuevaVelocidad.y);
-                }
-            }else{
-                if(monedaObjetivo != null){
-                    System.out.println("Encontre: (" + monedaObjetivo.getX() + "," + monedaObjetivo.getY() + ")");
-                    Vector2 nuevaVelocidad = steer(monedaObjetivo);
-                    con.makeMove("" + nuevaVelocidad.x, "" + nuevaVelocidad.y);
-                }
+        } else {
+            if (monedaObjetivo != null) {
+                System.out.println("Encontre: (" + monedaObjetivo.getX() + "," + monedaObjetivo.getY() + ")");
+                Vector2 nuevaVelocidad = steer(monedaObjetivo);
+                con.makeMove("" + nuevaVelocidad.x, "" + nuevaVelocidad.y);
             }
+        }
 
-        
     }
 
     private Moneda monedaMasCercana() {
@@ -120,12 +106,12 @@ public class Agente {
         return masCercana;
     }
 
-    private NavePlayer enemigoMasCercano(){
+    private NavePlayer enemigoMasCercano() {
         NavePlayer masCercano = null;
         double distanciaMasCercana = Integer.MAX_VALUE;
         for (NavePlayer player : navePlayers) {
             if (player != null && myAgent != null) {
-                if(player!=myAgent){
+                if (player != myAgent) {
                     double distanciaActual = distancia(player.getPosition(), myAgent.getPosition());
                     if (masCercano == null) {
                         masCercano = player;
@@ -142,10 +128,6 @@ public class Agente {
 
         return masCercano;
     }
-
-    //private NavePlayer enemigoMasCercano() {
-    ///    return null;
-    //}
 
     // Este metodo basicamente es el seek
     private Vector2 steer(Moneda entidad) {
@@ -170,7 +152,8 @@ public class Agente {
         return vectorSteering;
 
     }
-    private Vector2 steer1(NavePlayer entidad) {
+
+    private Vector2 steer(NavePlayer entidad) {
         Vector2 vectorDesired, vectorSteering;
         // 1. vector(desired velocity) = (target position) - (vehicle position)
         vectorDesired = new Vector2(entidad.getX(), entidad.getY()).subtract(myAgent.getX(), myAgent.getY());
