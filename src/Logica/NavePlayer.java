@@ -35,7 +35,7 @@ public class NavePlayer {
     //private LinkedList<Nave> navesAliadas; // No esta 'Nave' 
     private int idBullets;
     private String pregunta;
-    private int[] opciones;
+    private String[] opciones;
     private boolean bloqueado;
     private int respuesta;
 
@@ -81,17 +81,25 @@ public class NavePlayer {
         return velocidad;
     }
 
+    public String getPregunta() {
+        return pregunta;
+    }
+
+    public int getRespuesta() {
+        return respuesta;
+    }
+
     public void fromJSON(JSONObject object) { // Temporal, falta definir bien el toJSON
         //JSONObject opciones = (JSONObject) object.get("opciones");
         JSONObject nave = (JSONObject) ((JSONObject) object.get("super")).get("Nave");
         JSONObject entity = (JSONObject) ((JSONObject) nave.get("super")).get("Entity");
         JSONObject state = (JSONObject) ((JSONObject) entity.get("super")).get("State");
-
+        JSONObject opciones = (JSONObject) object.get("opciones");
         /*for (Iterator iterator = opciones.keySet().iterator(); iterator.hasNext();) {
             String key = (String) iterator.next();
 
         }*/
-        
+
         // State
         this.id = (String) state.get("id");
         this.name = (String) state.get("name");
@@ -116,7 +124,8 @@ public class NavePlayer {
         //this.navesAliadas; // El JSON trae los id de las navesAliadas
         this.idBullets = (int) (long) object.get("idBullets");
         this.pregunta = (String) object.get("pregunta");
-        //this.opciones;
+
+        this.opciones = new String[]{(String) opciones.get("opcion0"), (String) opciones.get("opcion1"), (String) opciones.get("opcion2")};
         this.bloqueado = (boolean) object.get("bloqueado");
         this.respuesta = (int) (long) object.get("respuesta");
 

@@ -87,4 +87,17 @@ public class Conexion {
         return res;
     }
 
+    public String answer(String x) throws MalformedURLException, IOException {
+        System.out.println("quiero moverme");
+        url = new URL(servidor + "/actionAnswer?respuesta=" + x + "&session=" + token);
+        conn = (HttpURLConnection) url.openConnection();
+        conn.setRequestMethod("GET");
+        if (conn.getResponseCode() != 200) {
+            throw new RuntimeException("Failed: HTTP error code : " + conn.getResponseCode());
+        }
+        BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+        String res = reader.readLine();
+        return res;
+    }
+
 }

@@ -80,7 +80,7 @@ public class Manager {
             Logger.getLogger(Manager.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-     */
+    */
     public void updateState(String state) {
         try {
             proyectilList = new ArrayList<>();
