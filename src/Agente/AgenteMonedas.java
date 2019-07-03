@@ -64,7 +64,7 @@ public class AgenteMonedas {
         NavePlayer enemigoObjetivo = enemigoMasCercano();
 
         if (enemigoObjetivo != null) {
-            distanciaEnemigo = distancia(enemigoObjetivo.getPosition(), myAgent.getPosition());
+            distanciaEnemigo = distancia(enemigoObjetivo.getPositionPoint(), myAgent.getPositionPoint());
             System.out.println("distanciaEnemigo" + distanciaEnemigo);
             if (distanciaEnemigo < (1366-639)/40) {
                 System.out.println("Encontre: (" + enemigoObjetivo.getX() + "," + enemigoObjetivo.getY() + ")");
@@ -90,7 +90,7 @@ public class AgenteMonedas {
         double distanciaMasCercana = Integer.MAX_VALUE;
         for (Moneda moneda : monedas) {
             if (moneda != null && myAgent != null) {
-                double distanciaActual = distancia(moneda.getPosition(), myAgent.getPosition());
+                double distanciaActual = distancia(moneda.getPosition(), myAgent.getPositionPoint());
                 if (masCercana == null) {
                     masCercana = moneda;
                     distanciaMasCercana = distanciaActual;
@@ -112,7 +112,7 @@ public class AgenteMonedas {
         for (NavePlayer player : navePlayers) {
             if (player != null && myAgent != null) {
                 if (player != myAgent) {
-                    double distanciaActual = distancia(player.getPosition(), myAgent.getPosition());
+                    double distanciaActual = distancia(player.getPositionPoint(), myAgent.getPositionPoint());
                     if (masCercano == null) {
                         masCercano = player;
                         distanciaMasCercana = distanciaActual;

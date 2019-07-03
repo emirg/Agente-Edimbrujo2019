@@ -73,8 +73,12 @@ public class NavePlayer {
         return y;
     }
 
-    public Point getPosition() {
+    public Point getPositionPoint() {
         return new Point((int) x, (int) y);
+    }
+
+    public Vector2 getPositionVector() {
+        return new Vector2(x, y);
     }
 
     public Vector2 getVelocidad() {

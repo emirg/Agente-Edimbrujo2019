@@ -64,9 +64,9 @@ public class AgenteMonedas_Respondedor {
         NavePlayer enemigoObjetivo = enemigoMasCercano();
         if (myAgent.getPregunta().equalsIgnoreCase("")) {
             if (enemigoObjetivo != null) {
-                distanciaEnemigo = distancia(enemigoObjetivo.getPosition(), myAgent.getPosition());
+                distanciaEnemigo = distancia(enemigoObjetivo.getPositionPoint(), myAgent.getPositionPoint());
                 System.out.println("distanciaEnemigo" + distanciaEnemigo);
-                if (distanciaEnemigo < 20) {
+                if (distanciaEnemigo < (1366 - 639) / 40) {
                     System.out.println("Encontre: (" + enemigoObjetivo.getX() + "," + enemigoObjetivo.getY() + ")");
                     Vector2 nuevaVelocidad = steer(enemigoObjetivo);
                     con.makeAction("fire");
@@ -93,7 +93,7 @@ public class AgenteMonedas_Respondedor {
         double distanciaMasCercana = Integer.MAX_VALUE;
         for (Moneda moneda : monedas) {
             if (moneda != null && myAgent != null) {
-                double distanciaActual = distancia(moneda.getPosition(), myAgent.getPosition());
+                double distanciaActual = distancia(moneda.getPosition(), myAgent.getPositionPoint());
                 if (masCercana == null) {
                     masCercana = moneda;
                     distanciaMasCercana = distanciaActual;
@@ -115,7 +115,7 @@ public class AgenteMonedas_Respondedor {
         for (NavePlayer player : navePlayers) {
             if (player != null && myAgent != null) {
                 if (player != myAgent) {
-                    double distanciaActual = distancia(player.getPosition(), myAgent.getPosition());
+                    double distanciaActual = distancia(player.getPositionPoint(), myAgent.getPositionPoint());
                     if (masCercano == null) {
                         masCercano = player;
                         distanciaMasCercana = distanciaActual;

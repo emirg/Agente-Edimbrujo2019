@@ -22,14 +22,15 @@ public class Edimbrujo2019_Agente {
         try {
             // TODO code application logic here
             //AgenteMoneda ia = new Agente();
-            AgenteAtaque ia = new AgenteAtaque();
-            //AgenteMonedas_Respondedor ia1 = new AgenteMonedas_Respondedor();
-            //AgenteMonedas ia2 = new AgenteMonedas();
-
+            //AgenteAtaque ia = new AgenteAtaque();
+            //AgenteAtaque_Respondedor ia = new AgenteAtaque_Respondedor();
+            AgenteAtaque_Persuit ia = new AgenteAtaque_Persuit();
+            //AgenteMonedas ia = new AgenteMonedas();
 
             while (true) {
 
                 ia.jugar();
+
             }
 
         } catch (IOException ex) {
