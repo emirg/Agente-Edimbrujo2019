@@ -66,7 +66,7 @@ public class AgenteMonedas_Respondedor {
             if (enemigoObjetivo != null) {
                 distanciaEnemigo = distancia(enemigoObjetivo.getPosition(), myAgent.getPosition());
                 System.out.println("distanciaEnemigo" + distanciaEnemigo);
-                if (distanciaEnemigo < 200) {
+                if (distanciaEnemigo < 20) {
                     System.out.println("Encontre: (" + enemigoObjetivo.getX() + "," + enemigoObjetivo.getY() + ")");
                     Vector2 nuevaVelocidad = steer(enemigoObjetivo);
                     con.makeAction("fire");

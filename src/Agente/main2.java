@@ -13,7 +13,7 @@ import java.util.logging.Logger;
  *
  * @author emiliano
  */
-public class Edimbrujo2019_Agente {
+public class main2 {
 
     /**
      * @param args the command line arguments

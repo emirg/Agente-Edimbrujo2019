@@ -67,9 +67,9 @@ public class AgenteAtaque {
             distanciaMoneda=distancia(monedaObjetivo.getPosition(), myAgent.getPosition());
             if(enemigoObjetivo != null ){
                 distanciaEnemigo=distancia(enemigoObjetivo.getPosition(), myAgent.getPosition());
-                if(distanciaEnemigo<500){
+                if(distanciaEnemigo<(1366-639)/10){
                     System.out.println("distanciaEnemigo"+distanciaEnemigo);
-                    if(distanciaEnemigo<200){
+                    if(distanciaEnemigo<(1366-639)/25){
                         System.out.println("Encontre: (" + enemigoObjetivo.getX() + "," + enemigoObjetivo.getY() + ")");
                         Vector2 nuevaVelocidad = steer1(enemigoObjetivo);
                         con.makeAction("fire");
