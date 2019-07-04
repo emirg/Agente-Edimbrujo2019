@@ -11,30 +11,21 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author emiliano
+ * @author german
  */
-public class main2 {
-
-    /**
-     * @param args the command line arguments
-     */
+public class Edimbrujo2019_AgenteRecolector {
+    
     public static void main(String[] args) {
         try {
             // TODO code application logic here
-            //AgenteMoneda ia = new Agente();
-            AgenteAtaque ia = new AgenteAtaque();
-            //AgenteMonedas_Respondedor ia1 = new AgenteMonedas_Respondedor();
-            //AgenteMonedas ia2 = new AgenteMonedas();
-
-
+            AgenteRecolector ia=new AgenteRecolector();
             while (true) {
-
                 ia.jugar();
             }
 
         } catch (IOException ex) {
-            Logger.getLogger(Edimbrujo2019_Agente.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Edimbrujo2019_AgenteRecolector.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    
 }

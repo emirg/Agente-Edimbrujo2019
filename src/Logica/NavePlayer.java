@@ -84,6 +84,9 @@ public class NavePlayer {
     public Vector2 getVelocidad() {
         return velocidad;
     }
+    public Vector2 getDirection() {
+        return direccion;
+    }
 
     public String getPregunta() {
         return pregunta;
@@ -91,6 +94,9 @@ public class NavePlayer {
 
     public int getRespuesta() {
         return respuesta;
+    }
+    public double getAngulo(){
+        return angulo;
     }
 
     public void fromJSON(JSONObject object) { // Temporal, falta definir bien el toJSON

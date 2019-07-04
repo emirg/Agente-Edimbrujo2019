@@ -21,7 +21,7 @@ import org.dyn4j.geometry.Vector2;
  *
  * @author emiliano
  */
-public class AgenteAtaque_Persuit { // Y respondedor
+public class AgenteAgresivo {
 
     public static final double MAX_VELOCITY = 20;
 
@@ -35,7 +35,7 @@ public class AgenteAtaque_Persuit { // Y respondedor
     private String myID;
     private Conexion con;
 
-    public AgenteAtaque_Persuit() throws IOException {
+    public AgenteAgresivo() throws IOException {
 
         //con = new Conexion("http://10.0.20.157:8080/Edimbrujo/webservice/server");
         //con = new Conexion("http://edimbrujo.fi.uncoma.edu.ar/Edimbrujo/webservice/server");
@@ -62,19 +62,18 @@ public class AgenteAtaque_Persuit { // Y respondedor
 
         Moneda monedaObjetivo = monedaMasCercana();
         NavePlayer enemigoObjetivo = enemigoMasCercano();
+
         if (myAgent.getPregunta().equalsIgnoreCase("")) {
             if (enemigoObjetivo != null) {
                 distanciaEnemigo = distancia(enemigoObjetivo.getPositionPoint(), myAgent.getPositionPoint());
                 System.out.println("distanciaEnemigo" + distanciaEnemigo);
+                Vector2 nuevaVelocidad = steer(enemigoObjetivo);
                 if (distanciaEnemigo < (1366-639)/10) {
                     System.out.println("Encontre: (" + enemigoObjetivo.getX() + "," + enemigoObjetivo.getY() + ")");
-                    Vector2 nuevaVelocidad = persuit(enemigoObjetivo);
                     con.makeAction("fire");
-                } else {
-                    System.out.println("Encontre: (" + enemigoObjetivo.getX() + "," + enemigoObjetivo.getY() + ")");
-                    Vector2 nuevaVelocidad = persuit(enemigoObjetivo);
-                    con.makeMove("" + nuevaVelocidad.x, "" + nuevaVelocidad.y);
                 }
+                System.out.println("Encontre: (" + enemigoObjetivo.getX() + "," + enemigoObjetivo.getY() + ")");
+                con.makeMove("" + nuevaVelocidad.x, "" + nuevaVelocidad.y);
             } else {
                 if (monedaObjetivo != null) {
                     System.out.println("Encontre: (" + monedaObjetivo.getX() + "," + monedaObjetivo.getY() + ")");
@@ -176,34 +175,7 @@ public class AgenteAtaque_Persuit { // Y respondedor
         //truncate(vectorSteering.add(myAgent.getVelocidad()), MAX_VELOCITY);
         vectorSteering.add(myAgent.getVelocidad());
         return vectorSteering;
-    }
 
-    private Vector2 steer(Vector2 futuraPosicion) {
-        Vector2 vectorDesired, vectorSteering;
-        // 1. vector(desired velocity) = (target position) - (vehicle position)
-        vectorDesired = new Vector2(futuraPosicion.x, futuraPosicion.y).subtract(myAgent.getX(), myAgent.getY());
-        // 2. normalize vector(desired velocity)
-        vectorDesired.normalize();
-        // 3. scale vector(desired velocity) to maximum speed
-        vectorDesired.setMagnitude(MAX_VELOCITY);
-        // 4. vector(steering force) = vector(desired velocity) - vector(current velocity)
-        vectorSteering = vectorDesired.subtract(myAgent.getVelocidad());
-
-        // 5. limit the magnitude of vector(steering force) to maximum force
-        //vectorSteering.scale(200);
-        // 6. vector(new velocity) = vector(current velocity) + vector(steering force)
-        // 7. limit the magnitude of vector(new velocity) to maximum speed
-        vectorSteering.x = vectorSteering.x / 10;
-        vectorSteering.y = vectorSteering.y / 10;
-        //truncate(vectorSteering.add(myAgent.getVelocidad()), MAX_VELOCITY);
-        vectorSteering.add(myAgent.getVelocidad());
-        return vectorSteering;
-    }
-
-    private Vector2 persuit(NavePlayer entidad) {
-        Vector2 velocidadNaveEnemiga = entidad.getVelocidad();
-        Vector2 futuraPosicion = entidad.getPositionVector().add(velocidadNaveEnemiga).multiply(3);
-        return steer(futuraPosicion);
     }
 
     private void truncate(Vector2 vector, double max) {
